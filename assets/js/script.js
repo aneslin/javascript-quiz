@@ -3,9 +3,13 @@ var question1 = document.getElementById("question-1");
 var question2 = document.getElementById("question-2");
 var question3 = document.getElementById("question-3");
 var question4 = document.getElementById("question-4");
+var initials = document.getElementById("initials")
 var finalScore = document.getElementById("score")
 let timeleft;
 var score
+var storage
+var scoreStore
+var time
 //create loop for array of choices
 
 var questionMainEl = document.getElementById("greeting-box");
@@ -42,11 +46,11 @@ function showSections(elementId){
 }
 //counter function
 function count(){
-    timeleft=30
-    var time = setInterval(function(){
+    timeleft=3
+    time = setInterval(function(){
       timerEl.textContent = timeleft;
         if (timeleft <= 0){
-        clearInterval(time)
+        end()
 } 
 else {
     timeleft --}
@@ -77,6 +81,18 @@ function end(){
   showSections("final-score")
   finalScore.textContent=score
   hideSection("time")
+  document.getElementById("titleText").textContent= "Enter Your Score"
+
+  document.getElementById("store").addEventListener("click", function(event){
+    event.preventDefault()
+    if (initials.value.length > 0){
+      
+      scoreStore = JSON.stringify({ "initials": initials.value, "Score" : score})
+      localStorage.setItem("score", scoreStore)
+    }
+  })
+
+  
 }
 
 
@@ -118,7 +134,5 @@ function end(){
     
 }
 
-  //create li and button 
-
-  //event listerner on button. if button === {"correct"} index +1, else timer -10 AND index +1 
+  
 document.getElementById("startBtn").addEventListener("click", start)
