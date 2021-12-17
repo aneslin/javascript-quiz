@@ -3,6 +3,7 @@ var question = document.createElement("h3");
 var answer1Ul = document.createElement("ul");
 let timeleft;
 var iQ = 0
+var score
 //create loop for array of choices
 
 var questionMainEl = document.getElementById("greeting-box");
@@ -42,17 +43,20 @@ function count(){
     timeleft=30
     var time = setInterval(function(){
       timerEl.textContent = timeleft;
-        if (timeleft===0){
+        if (timeleft <= 0){
         clearInterval(time)
-  //call score page
+
 } 
-//or if question array i = questionArray length
 else {
     timeleft --}
   },1000);
 } ;
 
-function answerMaker(question){
+function questionMaker(question){
+  var questionWrapper = document.createElement("div")
+  var questionText = document.createElement("h2")
+  questionText.textContent = question.question
+  questionWrapper.appendChild(questionText)
   var answerBlockEl = document.createElement("ul")
   for(i = 0; i < question.choices.length; i ++){
     var listItemEl = document.createElement("li");
@@ -63,9 +67,9 @@ function answerMaker(question){
     listItemEl.appendChild(buttonEl)
     answerBlockEl.appendChild(listItemEl)
   }
-  return answerBlockEl
+  questionWrapper.appendChild(answerBlockEl)
+  return questionWrapper
 }
-
 
 
  var start = function  (){
@@ -73,32 +77,11 @@ function answerMaker(question){
     showSections("question-section")
   count();
   var questionEl = document.getElementById("question-section")
-  
-  
-  
-  function quiz(){
-    var questionWrapperEl = document.createElement("div")
-    questionWrapperEl.elementId = "question-wrapper"
-    questionEl.appendChild(questionWrapperEl)
-    var questionTextEl = document.createElement("h3")
-    console.log(questionArray[iQ].question)
-    questionTextEl.textContent = questionArray[iQ].question
-    questionWrapperEl.appendChild(questionTextEl)
-    questionWrapperEl.appendChild(answerMaker(questionArray[iQ]))
-    document.getElementById("question-section").addEventListener("click", function(answerChoice){
-      if (answerChoice.target.textContent != questionArray[iQ].correct){
-        timeleft = timeleft - 10
-
-      document.getElementById("question-section").replaceChildren([''])
-      iQ++
-      console.log(iQ)
-      quiz()
-      }
-     
-    })
-  }
-  quiz()
-}
+  questionEl.appendChild(questionMaker(questionArray[iQ]))
+ 
+ 
+ }
+    
 
   //create li and button 
 
