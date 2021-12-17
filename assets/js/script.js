@@ -101,12 +101,26 @@ function end(){
       console.log(localStoreHighScore)
       localStoreHighScore = JSON.stringify(localStoreHighScore)
       localStorage.setItem("score",localStoreHighScore)
-    //  hideSection("final-score")
-      //showSections("highScore")
+      hideSection("final-score")
+      showSections("highScores")
+      highScoreList.appendChild(displayScores())
     }
   }) 
 }
 
+
+ function displayScores() {
+  var scoreWrapper= document.createElement("ul") 
+  localStoreHighScore = JSON.parse(localStorage.getItem("score"))
+  var scoreList = Object.entries(localStoreHighScore)
+  console.log(scoreList)
+  for(var i = 0; i < scoreList.length; i++){
+   var  listEl = document.createElement("li")
+   listEl.textContent = scoreList[i][0]+ " -----" + scoreList[i][1]
+   scoreWrapper.appendChild(listEl)
+  }
+  return scoreWrapper
+}
 
 
 
