@@ -6,15 +6,25 @@ var question4 = document.getElementById("question-4");
 var initials = document.getElementById("initials")
 var finalScore = document.getElementById("score")
 let timeleft;
-var score
-var storage
 var scoreStore
 var time
+var localStoreHighScore
+var highScoreList = document.getElementById("scoreList");
 //create loop for array of choices
 
 var questionMainEl = document.getElementById("greeting-box");
 let questionSection = document.getElementById("question-section");
 
+function getScores(){
+  if (localStorage.key("score")){
+    localStoreHighScore = localStorage.getItem("score")
+    console.log(localStoreHighScore)
+    localStoreHighScore = JSON.parse(localStoreHighScore)
+  }
+  else{
+    localStoreHighScore = {}
+  }
+}
 
 const questionArray = [
   {"question": "who is the best dog?", 
@@ -46,7 +56,7 @@ function showSections(elementId){
 }
 //counter function
 function count(){
-    timeleft=3
+    timeleft=30
     time = setInterval(function(){
       timerEl.textContent = timeleft;
         if (timeleft <= 0){
@@ -75,30 +85,35 @@ function questionMaker(question){
 }
 
 function end(){
-  score = timeleft
+  
   clearInterval(time)
   hideSection("question-section")
   showSections("final-score")
-  finalScore.textContent=score
+  finalScore.textContent=timeleft
   hideSection("time")
-  document.getElementById("titleText").textContent= "Enter Your Score"
+  document.getElementById("titleText").textContent= "Enter Your Initials"
 
   document.getElementById("store").addEventListener("click", function(event){
     event.preventDefault()
     if (initials.value.length > 0){
+      localStoreHighScore[initials.value] = timeleft
       
-      scoreStore = JSON.stringify({ "initials": initials.value, "Score" : score})
-      localStorage.setItem("score", scoreStore)
+      console.log(localStoreHighScore)
+      localStoreHighScore = JSON.stringify(localStoreHighScore)
+      localStorage.setItem("score",localStoreHighScore)
+    //  hideSection("final-score")
+      //showSections("highScore")
     }
-  })
-
-  
+  }) 
 }
+
+
 
 
  var start = function  (){
     hideSection("greeting-box");
     count();
+  getScores();
     question1.appendChild(questionMaker(questionArray[0]))
     question2.appendChild(questionMaker(questionArray[1]))
     showSections("question-section")
