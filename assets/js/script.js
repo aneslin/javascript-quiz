@@ -1,8 +1,10 @@
-var timerEl = document. getElementById("time");
-var question = document.createElement("h3");
-var answer1Ul = document.createElement("ul");
+var timerEl = document.getElementById("time");
+var question1 = document.getElementById("question-1");
+var question2 = document.getElementById("question-2");
+var question3 = document.getElementById("question-3");
+var question4 = document.getElementById("question-4");
+var finalScore = document.getElementById("score")
 let timeleft;
-var iQ = 0
 var score
 //create loop for array of choices
 
@@ -11,7 +13,7 @@ let questionSection = document.getElementById("question-section");
 
 
 const questionArray = [
- question1 =  {"question": "who is the best dog?", 
+  {"question": "who is the best dog?", 
     "choices":[
          "barnaby",
         "Beau",
@@ -19,7 +21,7 @@ const questionArray = [
     ],
     "correct": "barnaby"
 },
-question2 ={"question": "what is the best toy?",
+{"question": "what is the best toy?",
 "choices": [
   "sock",
   "banana",
@@ -45,12 +47,11 @@ function count(){
       timerEl.textContent = timeleft;
         if (timeleft <= 0){
         clearInterval(time)
-
 } 
 else {
     timeleft --}
   },1000);
-} ;
+};
 
 function questionMaker(question){
   var questionWrapper = document.createElement("div")
@@ -61,27 +62,61 @@ function questionMaker(question){
   for(i = 0; i < question.choices.length; i ++){
     var listItemEl = document.createElement("li");
     var buttonEl = document.createElement("button");
-    buttonEl.elementId= "answer-" + i;
-    console.log(question.choices[i])
     buttonEl.textContent=question.choices[i]
     listItemEl.appendChild(buttonEl)
     answerBlockEl.appendChild(listItemEl)
-  }
+  };
   questionWrapper.appendChild(answerBlockEl)
   return questionWrapper
+}
+
+function end(){
+  score = timeleft
+  clearInterval(time)
+  hideSection("question-section")
+  showSections("final-score")
+  finalScore.textContent=score
+  hideSection("time")
 }
 
 
  var start = function  (){
     hideSection("greeting-box");
+    count();
+    question1.appendChild(questionMaker(questionArray[0]))
+    question2.appendChild(questionMaker(questionArray[1]))
     showSections("question-section")
-  count();
-  var questionEl = document.getElementById("question-section")
-  questionEl.appendChild(questionMaker(questionArray[iQ]))
- 
- 
- }
     
+    question1.addEventListener("click", function(event){
+      console.log(event.target.tagName)
+      if(event.target.tagName != "H2" && event.target.textContent === questionArray[0].correct){
+        window.alert("correct!")
+        hideSection("question-1")
+        showSections("question-2")
+      }
+      else if(event.target.tagName != "H2"  && event.target.textContent != questionArray[0].correct){
+
+        window.alert("WRONG!")
+        timeleft = Math.max(0 ,timeleft - 10)
+      question1.classList.add("hide")
+      question2.classList.remove("hide")
+      };
+    })
+
+   question2.addEventListener("click", function(event){
+    console.log(event.target.tagName)
+    if(event.target.tagName != "h2" && event.target.textContent === questionArray[1].correct){
+      window.alert("correct!")
+      end()
+ }
+    else if(event.target.tagName != "h2" && event.target.textContent != questionArray[1].correct){
+    window.alert("WRONG!")
+    timeleft = timeleft - 10
+    end()
+  }
+})
+    
+}
 
   //create li and button 
 
