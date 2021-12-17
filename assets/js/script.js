@@ -56,7 +56,7 @@ function showSections(elementId){
 }
 //counter function
 function count(){
-    timeleft=30
+    timeleft=10000
     time = setInterval(function(){
       timerEl.textContent = timeleft;
         if (timeleft <= 0){
@@ -134,12 +134,12 @@ function end(){
     
     question1.addEventListener("click", function(event){
       console.log(event.target.tagName)
-      if(event.target.tagName != "H2" && event.target.textContent === questionArray[0].correct){
+      if(event.target.tagName === "BUTTON" && event.target.textContent === questionArray[0].correct){
         window.alert("correct!")
         hideSection("question-1")
         showSections("question-2")
       }
-      else if(event.target.tagName != "H2"  && event.target.textContent != questionArray[0].correct){
+      else if(event.target.tagName === "BUTTON"  && event.target.textContent != questionArray[0].correct){
 
         window.alert("WRONG!")
         timeleft = Math.max(0 ,timeleft - 10)
@@ -150,11 +150,11 @@ function end(){
 
    question2.addEventListener("click", function(event){
     console.log(event.target.tagName)
-    if(event.target.tagName != "h2" && event.target.textContent === questionArray[1].correct){
+    if(event.target.tagName ==="BUTTON" && event.target.textContent === questionArray[1].correct){
       window.alert("correct!")
       end()
  }
-    else if(event.target.tagName != "h2" && event.target.textContent != questionArray[1].correct){
+    else if(event.target.tagName === "BUTTON" && event.target.textContent != questionArray[1].correct){
     window.alert("WRONG!")
     timeleft = timeleft - 10
     end()
