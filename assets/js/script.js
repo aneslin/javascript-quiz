@@ -3,6 +3,7 @@ var question1 = document.getElementById("question-1");
 var question2 = document.getElementById("question-2");
 var question3 = document.getElementById("question-3");
 var question4 = document.getElementById("question-4");
+var question5 = document.getElementById("question-5");
 var initials = document.getElementById("initials")
 var finalScore = document.getElementById("score")
 let timeleft;
@@ -27,22 +28,54 @@ function getScores(){
 }
 
 const questionArray = [
-  {"question": "who is the best dog?", 
+  //0
+  {"question": "What Indicates an Array in Javascript?", 
     "choices":[
-         "barnaby",
-        "Beau",
-         "Willaby"
+         "[Square Brackets]",
+        "{Curly Brakets}",
+         "<Pointy Things>"
     ],
-    "correct": "barnaby"
+    "correct": "[Square Brackets]"
 },
-{"question": "what is the best toy?",
+//1
+{"question": "What is missing 'for(var i ==0 ; i++)'",
 "choices": [
-  "sock",
-  "banana",
-  "What I am not supposed to have"
+  "for i in x",
+  " i === length",
+  "i < array.length"
 ],
-"correct": "What I am not supposed to have"
-}]
+"correct": "i < array.length"
+},
+//2
+{"question": "Which of the Following is True?:",
+"choices": [
+  "Javascript is a lighter version of Java",
+  "Javascript has no relation to Java",
+  "Java is a superset of Javascript "
+],
+"correct": "Javascript has no relation to Java"
+},
+//3
+{"question": "What can be stored inside an object?",
+"choices": [
+  "A string",
+  "an array",
+  "any of the above"
+],
+"correct": "any of the above"
+},
+//4
+{"question": "You can Access things in an object with:",
+"choices": [
+  "object.key",
+  "object(key)",
+  "where key = key in object"
+],
+"correct":"object.key"
+}
+
+
+]
 
 //hide sections from the user
 function hideSection(elementId){
@@ -127,11 +160,17 @@ function end(){
  var start = function  (){
     hideSection("greeting-box");
     count();
-  getScores();
+    getScores();
+
     question1.appendChild(questionMaker(questionArray[0]))
     question2.appendChild(questionMaker(questionArray[1]))
+    question3.appendChild(questionMaker(questionArray[2]))
+    question4.appendChild(questionMaker(questionArray[3]))
+    console.log(questionArray[4])
+    question5.appendChild(questionMaker(questionArray[4]))
+
     showSections("question-section")
-    
+   //question 1 
     question1.addEventListener("click", function(event){
       console.log(event.target.tagName)
       if(event.target.tagName === "BUTTON" && event.target.textContent === questionArray[0].correct){
@@ -143,18 +182,68 @@ function end(){
 
         window.alert("WRONG!")
         timeleft = Math.max(0 ,timeleft - 10)
-      question1.classList.add("hide")
-      question2.classList.remove("hide")
+        hideSection("question-1")
+        showSections("question-2")
+      };
+    })
+//question 2
+    question2.addEventListener("click", function(event){
+      console.log(event.target.tagName)
+      if(event.target.tagName === "BUTTON" && event.target.textContent === questionArray[1].correct){
+        window.alert("correct!")
+        hideSection("question-2")
+        showSections("question-3")
+      }
+      else if(event.target.tagName === "BUTTON"  && event.target.textContent != questionArray[1].correct){
+
+        window.alert("WRONG!")
+        timeleft = Math.max(0 ,timeleft - 10)
+        hideSection("question-2")
+        showSections("question-3")
+      };
+    })
+//question 3
+    question3.addEventListener("click", function(event){
+      console.log(event.target.tagName)
+      if(event.target.tagName === "BUTTON" && event.target.textContent === questionArray[2].correct){
+        window.alert("correct!")
+        hideSection("question-3")
+        showSections("question-4")
+      }
+      else if(event.target.tagName === "BUTTON"  && event.target.textContent != questionArray[2].correct){
+
+        window.alert("WRONG!")
+        timeleft = Math.max(0 ,timeleft - 10)
+        hideSection("question-3")
+        showSections("question-4")
+      };
+    })
+//question 4
+    question4.addEventListener("click", function(event){
+      console.log(event.target.tagName)
+      if(event.target.tagName === "BUTTON" && event.target.textContent === questionArray[3].correct){
+        window.alert("correct!")
+        hideSection("question-4")
+        showSections("question-5")
+      }
+      else if(event.target.tagName === "BUTTON"  && event.target.textContent != questionArray[3].correct){
+
+        window.alert("WRONG!")
+        timeleft = Math.max(0 ,timeleft - 10)
+        hideSection("question-4")
+        showSections("question-5")
       };
     })
 
-   question2.addEventListener("click", function(event){
+
+//question 5
+   question5.addEventListener("click", function(event){
     console.log(event.target.tagName)
-    if(event.target.tagName ==="BUTTON" && event.target.textContent === questionArray[1].correct){
+    if(event.target.tagName ==="BUTTON" && event.target.textContent === questionArray[4].correct){
       window.alert("correct!")
       end()
  }
-    else if(event.target.tagName === "BUTTON" && event.target.textContent != questionArray[1].correct){
+    else if(event.target.tagName === "BUTTON" && event.target.textContent != questionArray[4].correct){
     window.alert("WRONG!")
     timeleft = timeleft - 10
     end()
