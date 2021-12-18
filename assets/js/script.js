@@ -61,10 +61,10 @@ const questionArray = [
 {"question": "What can be stored inside an object?",
 "choices": [
   "A string",
-  "an array",
-  "any of the above"
+  "An array",
+  "Any of the above"
 ],
-"correct": "any of the above"
+"correct": "Any of the above"
 },
 //4
 {"question": "You can Access things in an object with:",
@@ -159,6 +159,25 @@ function end(){
 }
 
 
+function questionChoice(questionId, arrayNum, thisQuestion, nextQuestion){
+  questionId.addEventListener("click", function(event){
+    console.log(event.target.tagName)
+    if(event.target.tagName === "BUTTON" && event.target.textContent === questionArray[arrayNum].correct){
+      window.alert("correct!")
+      hideSection(thisQuestion)
+      showSections(nextQuestion)
+    }
+    else if(event.target.tagName === "BUTTON"  && event.target.textContent != questionArray[arrayNum].correct){
+
+      window.alert("WRONG!")
+      timeleft = Math.max(0 ,timeleft - 10)
+      hideSection(thisQuestion)
+      showSections(nextQuestion)
+    };
+  })
+
+}
+
 
  var start = function  (){
     hideSection("greeting-box");
@@ -167,6 +186,7 @@ function end(){
     //retrieve the highscore array
     getScores();
     //make questions and append to array
+    //todo create by loop and not by individually
     question1.appendChild(questionMaker(questionArray[0]))
     question2.appendChild(questionMaker(questionArray[1]))
     question3.appendChild(questionMaker(questionArray[2]))
@@ -174,71 +194,13 @@ function end(){
     question5.appendChild(questionMaker(questionArray[4]))
     //reveal question block
     showSections("question-section")
+    //todo create question function instead of writing each out
    //question 1 
-    question1.addEventListener("click", function(event){
-      console.log(event.target.tagName)
-      if(event.target.tagName === "BUTTON" && event.target.textContent === questionArray[0].correct){
-        window.alert("correct!")
-        hideSection("question-1")
-        showSections("question-2")
-      }
-      else if(event.target.tagName === "BUTTON"  && event.target.textContent != questionArray[0].correct){
 
-        window.alert("WRONG!")
-        timeleft = Math.max(0 ,timeleft - 10)
-        hideSection("question-1")
-        showSections("question-2")
-      };
-    })
-//question 2
-    question2.addEventListener("click", function(event){
-      console.log(event.target.tagName)
-      if(event.target.tagName === "BUTTON" && event.target.textContent === questionArray[1].correct){
-        window.alert("correct!")
-        hideSection("question-2")
-        showSections("question-3")
-      }
-      else if(event.target.tagName === "BUTTON"  && event.target.textContent != questionArray[1].correct){
-
-        window.alert("WRONG!")
-        timeleft = Math.max(0 ,timeleft - 10)
-        hideSection("question-2")
-        showSections("question-3")
-      };
-    })
-//question 3
-    question3.addEventListener("click", function(event){
-      console.log(event.target.tagName)
-      if(event.target.tagName === "BUTTON" && event.target.textContent === questionArray[2].correct){
-        window.alert("correct!")
-        hideSection("question-3")
-        showSections("question-4")
-      }
-      else if(event.target.tagName === "BUTTON"  && event.target.textContent != questionArray[2].correct){
-
-        window.alert("WRONG!")
-        timeleft = Math.max(0 ,timeleft - 10)
-        hideSection("question-3")
-        showSections("question-4")
-      };
-    })
-//question 4
-    question4.addEventListener("click", function(event){
-      console.log(event.target.tagName)
-      if(event.target.tagName === "BUTTON" && event.target.textContent === questionArray[3].correct){
-        window.alert("correct!")
-        hideSection("question-4")
-        showSections("question-5")
-      }
-      else if(event.target.tagName === "BUTTON"  && event.target.textContent != questionArray[3].correct){
-
-        window.alert("WRONG!")
-        timeleft = Math.max(0 ,timeleft - 10)
-        hideSection("question-4")
-        showSections("question-5")
-      };
-    })
-
+  questionChoice(question1,0, "question-1", "question-2")
+  questionChoice(question2,1,"question-2", "question-3")
+  questionChoice(question3,2,"question-3", "question-4")
+  questionChoice(question4,3,"question-4", "question-5")
 
 //question 5 - after question 5 call end()
    question5.addEventListener("click", function(event){
@@ -256,5 +218,4 @@ function end(){
     
 }
 
-  
 document.getElementById("startBtn").addEventListener("click", start)
