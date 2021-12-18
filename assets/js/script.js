@@ -89,7 +89,7 @@ function showSections(elementId){
 }
 //counter function
 function count(){
-    timeleft=10000
+    timeleft=5
     time = setInterval(function(){
       timerEl.textContent = timeleft;
         if (timeleft <= 0){
@@ -147,9 +147,10 @@ function end(){
   localStoreHighScore = JSON.parse(localStorage.getItem("score"))
   var scoreList = Object.entries(localStoreHighScore)
   console.log(scoreList)
+  document.getElementById("titleText").textContent= "High Scores"
   for(var i = 0; i < scoreList.length; i++){
    var  listEl = document.createElement("li")
-   listEl.textContent = scoreList[i][0]+ " -----" + scoreList[i][1]
+   listEl.textContent = scoreList[i][0]+ " --- " + scoreList[i][1]
    scoreWrapper.appendChild(listEl)
   }
   return scoreWrapper
@@ -166,7 +167,6 @@ function end(){
     question2.appendChild(questionMaker(questionArray[1]))
     question3.appendChild(questionMaker(questionArray[2]))
     question4.appendChild(questionMaker(questionArray[3]))
-    console.log(questionArray[4])
     question5.appendChild(questionMaker(questionArray[4]))
 
     showSections("question-section")
