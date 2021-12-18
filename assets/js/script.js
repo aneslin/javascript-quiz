@@ -89,7 +89,7 @@ function showSections(elementId){
 }
 //counter function
 function count(){
-    timeleft=5
+    timeleft=60
     time = setInterval(function(){
       timerEl.textContent = timeleft;
         if (timeleft <= 0){
