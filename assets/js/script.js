@@ -11,14 +11,13 @@ var scoreStore
 var time
 var localStoreHighScore
 var highScoreList = document.getElementById("scoreList");
-
-
 var questionMainEl = document.getElementById("greeting-box");
 let questionSection = document.getElementById("question-section");
 
 
 //get high scores.  if no local storage array exists, create one
 function getScores(){
+
   if (localStorage.key("score")){
     localStoreHighScore = localStorage.getItem("score")
     console.log(localStoreHighScore)
@@ -79,22 +78,25 @@ const questionArray = [
 
 //hide sections from the user
 function hideSection(elementId){
+
     var visibleElement = document.getElementById(elementId);
     visibleElement.classList.add("hide");
 }
 //display sections to the user
 function showSections(elementId){
+
     var visibleElement = document.getElementById(elementId);
     visibleElement.classList.remove("hide");
 }
 //counter function
 function count(){
+
     timeleft=60;
     time = setInterval(function(){
       timerEl.textContent = timeleft;
         if (timeleft <= 0){
         end();
-} 
+  } 
 else {
     timeleft --}
   },1000);
@@ -109,9 +111,9 @@ function questionMaker(question){
   for(i = 0; i < question.choices.length; i ++){
     var listItemEl = document.createElement("li");
     var buttonEl = document.createElement("button");
-    buttonEl.textContent=question.choices[i]
-    listItemEl.appendChild(buttonEl)
-    answerBlockEl.appendChild(listItemEl)
+    buttonEl.textContent=question.choices[i];
+    listItemEl.appendChild(buttonEl);
+    answerBlockEl.appendChild(listItemEl);
   };
   questionWrapper.appendChild(answerBlockEl);
   return questionWrapper;
