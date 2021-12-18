@@ -11,11 +11,13 @@ var scoreStore
 var time
 var localStoreHighScore
 var highScoreList = document.getElementById("scoreList");
-//create loop for array of choices
+
 
 var questionMainEl = document.getElementById("greeting-box");
 let questionSection = document.getElementById("question-section");
 
+
+//get high scores.  if no local storage array exists, create one
 function getScores(){
   if (localStorage.key("score")){
     localStoreHighScore = localStorage.getItem("score")
@@ -26,7 +28,7 @@ function getScores(){
     localStoreHighScore = {}
   }
 }
-
+//array of question objects
 const questionArray = [
   //0
   {"question": "What Indicates an Array in Javascript?", 
@@ -99,7 +101,7 @@ else {
     timeleft --}
   },1000);
 };
-
+//build questions from question object
 function questionMaker(question){
   var questionWrapper = document.createElement("div")
   var questionText = document.createElement("h2")
@@ -116,7 +118,7 @@ function questionMaker(question){
   questionWrapper.appendChild(answerBlockEl)
   return questionWrapper
 }
-
+//end the quiz and call score entry
 function end(){
   
   clearInterval(time)
@@ -141,7 +143,7 @@ function end(){
   }) 
 }
 
-
+//display the high scores
  function displayScores() {
   var scoreWrapper= document.createElement("ul") 
   localStoreHighScore = JSON.parse(localStorage.getItem("score"))
@@ -160,15 +162,17 @@ function end(){
 
  var start = function  (){
     hideSection("greeting-box");
+    //start the count
     count();
+    //retrieve the highscore array
     getScores();
-
+    //make questions and append to array
     question1.appendChild(questionMaker(questionArray[0]))
     question2.appendChild(questionMaker(questionArray[1]))
     question3.appendChild(questionMaker(questionArray[2]))
     question4.appendChild(questionMaker(questionArray[3]))
     question5.appendChild(questionMaker(questionArray[4]))
-
+    //reveal question block
     showSections("question-section")
    //question 1 
     question1.addEventListener("click", function(event){
@@ -236,7 +240,7 @@ function end(){
     })
 
 
-//question 5
+//question 5 - after question 5 call end()
    question5.addEventListener("click", function(event){
     console.log(event.target.tagName)
     if(event.target.tagName ==="BUTTON" && event.target.textContent === questionArray[4].correct){
